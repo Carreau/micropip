@@ -7,17 +7,21 @@ from packaging.tags import Tag
     "path",
     [
         SNOWBALL_WHEEL,
-        f"/{SNOWBALL_WHEEL}" f"a/{SNOWBALL_WHEEL}",
+        f"/{SNOWBALL_WHEEL}",
+        f"a/{SNOWBALL_WHEEL}",
         f"/a/{SNOWBALL_WHEEL}",
         f"//a/{SNOWBALL_WHEEL}",
     ],
 )
-@pytest.mark.parametrize("protocol", ["https:", "file:", "emfs:", ""])
+@pytest.mark.parametrize(
+    "protocol",
+    ["https:", "file:", "emfs:", ""],
+)
 def test_parse_wheel_url1(protocol, path):
     pytest.importorskip("packaging")
     from micropip.transaction import WheelInfo
 
-    url = protocol + path
+    url = protocol + path if protocol else "file:///" + path
     wheel = WheelInfo.from_url(url)
     assert wheel.name == "snowballstemmer"
     assert str(wheel.version) == "2.0.0"
