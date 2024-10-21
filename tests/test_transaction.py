@@ -15,7 +15,7 @@ from packaging.tags import Tag
 )
 @pytest.mark.parametrize(
     "protocol",
-    ["https:", "file:", "emfs:", ""],
+    ["http:", "https:", "file:", "emfs:", ""],
 )
 def test_parse_wheel_url1(protocol, path):
     pytest.importorskip("packaging")

@@ -69,7 +69,6 @@ class WheelInfo:
         if parsed_url.scheme == "":
             url = "file:///" + url
         file_name = Path(parsed_url.path).name
-        assert file_name, (url, file_name, parsed_url)
         name, version, build, tags = parse_wheel_filename(file_name)
         return WheelInfo(
             name=name,
