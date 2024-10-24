@@ -152,9 +152,11 @@ class WheelInfo:
         return requires
 
     async def _fetch_bytes(self, fetch_kwargs: dict[str, Any]):
-        if self.parsed_url.scheme not in ("https", "http"):
+        if self.parsed_url.scheme not in ("https", "http", "emfs"):
             # Don't raise ValueError it gets swallowed
-            raise TypeError(f"Cannot download from a non-remote location: {self.url!r}")
+            raise TypeError(
+                f"Cannot download from a non-remote location: {self.url!r} ({self.parsed_url!r})"
+            )
         try:
             logger.debug("Fetching URL %r", self.url)
             bytes = await fetch_bytes(self.url, fetch_kwargs)
